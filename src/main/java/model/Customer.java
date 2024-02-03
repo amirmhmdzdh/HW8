@@ -1,5 +1,6 @@
 package model;
 
+import base.model.BaseEntity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -9,7 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
-public class Customer {
+public class Customer extends BaseEntity<Integer> {
 
   String name;
   String lastName;
