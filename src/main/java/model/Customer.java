@@ -12,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 
 public class Customer extends BaseEntity<Integer> {
 
-  String name;
+  String firstName;
   String lastName;
   String username;
   String email;
