@@ -32,20 +32,42 @@ public abstract class BaseRepositoryImpel<ID extends Serializable, TYPE extends 
     }
 
     @Override
-    public TYPE findById(ID id) {
+    public TYPE findById(ID id) throws SQLException {
+
+        String sql = " SELECT * FROM " + getTableName() + " WHERE id = ? ";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, (Integer) id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next())
+                return mapResultSetToEntity(resultSet);
+        }
         return null;
     }
 
-    @Override
-    public void update(TYPE entity) {
-
-    }
 
     @Override
-    public void delete(ID id) {
+    public void update(TYPE entity) throws SQLException {
 
+        String sql = " UPDATE " + getTableName() + " SET " + getUpdateQueryParams() + " WHERE id = " + entity.getId();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            fillParamForStatement(preparedStatement, entity, true);
+            preparedStatement.executeUpdate();
+        }
     }
 
+
+    @Override
+    public void delete(ID id) throws SQLException {
+
+        String sql = " DELETE FROM " + getTableName() + " WHERE id = ? ";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+            preparedStatement.setInt(1, (Integer) id);
+            preparedStatement.executeUpdate();
+        }
+
+    }
 
     public abstract String getTableName();
 
