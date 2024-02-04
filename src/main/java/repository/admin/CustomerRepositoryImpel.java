@@ -8,39 +8,50 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CustomerRepositoryImpel extends BaseRepositoryImpel<Integer , Admin > implements AdminRepository {
+public class CustomerRepositoryImpel extends BaseRepositoryImpel<Integer, Admin> implements AdminRepository {
+
     protected CustomerRepositoryImpel(Connection connection) {
         super(connection);
     }
 
     @Override
     public String getTableName() {
-        return null;
+        return " admin ";
     }
 
     @Override
     public String getColumnsName() {
-        return null;
+        return " user_name , password ";
     }
 
     @Override
     public String getCountOfQestionMarkParams() {
-        return null;
+        return " ( ? , ? ) ";
     }
 
     @Override
     public void fillParamForStatement(PreparedStatement preparedStatement, Admin entity, boolean isCountOnly) throws SQLException {
 
+        preparedStatement.setString(1, entity.getUserName());
+        preparedStatement.setString(2, entity.getPassword());
+
     }
 
     @Override
     public Admin mapResultSetToEntity(ResultSet resultSet) throws SQLException {
-        return null;
+
+        Admin admin = new Admin();
+        admin.setId(resultSet.getInt("id"));
+        admin.setUserName(resultSet.getString("user_name"));
+        admin.setPassword(resultSet.getString("password"));
+
+
+        return admin;
     }
 
     @Override
     public String getUpdateQueryParams() {
-        return null;
+        return" user_name = ? , password = ? ";
     }
 
     @Override
