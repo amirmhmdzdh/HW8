@@ -15,7 +15,9 @@ public class Product extends BaseEntity<Integer> {
 
     String name;
     String description;
+    String gender;
+    String color;
+    int siza;
     double price;
-
 
 }
