@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 
 public class ProductRepositoryImpel extends BaseRepositoryImpel<Integer, Product> implements ProductRepository {
-    private ProductRepositoryImpel(Connection connection) {
+    public ProductRepositoryImpel(Connection connection) {
         super(connection);
     }
 
