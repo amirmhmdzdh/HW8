@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS product
     gender      VARCHAR,
     color       VARCHAR,
     size        INTEGER,
-    price       INTEGER
-
+    price       INTEGER,
+    category_id Integer,
+    FOREIGN KEY (category_id)REFERENCES category(id)
 
 );
