@@ -8,9 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CustomerRepositoryImpel extends BaseRepositoryImpel<Integer, Admin> implements AdminRepository {
+public class AdminRepositoryImpel extends BaseRepositoryImpel<Integer, Admin> implements AdminRepository {
 
-    protected CustomerRepositoryImpel(Connection connection) {
+    public AdminRepositoryImpel(Connection connection) {
         super(connection);
     }
 
