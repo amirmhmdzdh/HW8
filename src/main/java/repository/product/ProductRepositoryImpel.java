@@ -26,12 +26,12 @@ public class ProductRepositoryImpel extends BaseRepositoryImpel<Integer, Product
 
     @Override
     public String getColumnsName() {
-        return " ( name , description , gender , color , size , price ) ";
+        return " ( name , description , gender , color , size , price , category_id ) ";
     }
 
     @Override
     public String getCountOfQestionMarkParams() {
-        return " ( ? , ? , ? , ? , ? , ? ) ";
+        return " ( ? , ? , ? , ? , ? , ? , ? ) ";
     }
 
     @Override
@@ -43,6 +43,7 @@ public class ProductRepositoryImpel extends BaseRepositoryImpel<Integer, Product
         preparedStatement.setString(4, entity.getColor());
         preparedStatement.setInt(5, entity.getSiza());
         preparedStatement.setInt(6, entity.getPrice());
+        preparedStatement.setInt(7, entity.getCategoryId());
 
     }
 
@@ -58,12 +59,13 @@ public class ProductRepositoryImpel extends BaseRepositoryImpel<Integer, Product
         product.setColor(resultSet.getString("color"));
         product.setSiza(resultSet.getInt("size"));
         product.setPrice(resultSet.getInt("price"));
+        product.setCategoryId(resultSet.getInt(" category_id "));
 
         return product;
     }
 
     @Override
     public String getUpdateQueryParams() {
-        return " name = ? , description = ? , gender = ? , color = ? , size = ? , price = ? ";
+        return " name = ? , description = ? , gender = ? , color = ? , size = ? , price = ? ,  category_id = ? ";
     }
 }
