@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 
 public class Admin extends BaseEntity<Integer> {
 
-    int id;
+
     String userName;
     String password;
 
