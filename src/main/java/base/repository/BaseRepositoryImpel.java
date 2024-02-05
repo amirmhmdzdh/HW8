@@ -19,9 +19,9 @@ public abstract class BaseRepositoryImpel<ID extends Serializable, TYPE extends 
 
 
     @Override
-    public void save(TYPE entity) throws SQLException {
+    public int save(TYPE entity) throws SQLException {
 
-        String sql = " INSER INTO " + getTableName() + " " + getColumnsName() + " VALUES " + getCountOfQestionMarkParams();
+        String sql = " INSERT INTO " + getTableName() + " " + getColumnsName() + " VALUES " + getCountOfQestionMarkParams();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             fillParamForStatement(preparedStatement, entity, false);
@@ -29,15 +29,16 @@ public abstract class BaseRepositoryImpel<ID extends Serializable, TYPE extends 
 
         }
 
+        return 0;
     }
 
     @Override
-    public TYPE findById(ID id) throws SQLException {
+    public TYPE findUser(String username) throws SQLException {
 
-        String sql = " SELECT * FROM " + getTableName() + " WHERE id = ? ";
+        String sql = " SELECT * FROM " + getTableName() + " WHERE user_name = ? ";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, (Integer) id);
+            preparedStatement.setString(1, String.valueOf(username));
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next())
                 return mapResultSetToEntity(resultSet);
