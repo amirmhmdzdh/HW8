@@ -21,8 +21,19 @@ public class BaseServiceImpel<ID extends Serializable, TYPE extends BaseEntity<I
     }
 
     @Override
+    public TYPE findByUser(ID id) throws SQLException {
+        return null;
+    }
+
+    @Override
     public TYPE findById(ID id) throws SQLException {
         return repository.findById(id);
+    }
+
+
+    @Override
+    public TYPE findByUser(String username) throws SQLException {
+        return repository.findUser(username);
     }
 
     @Override
