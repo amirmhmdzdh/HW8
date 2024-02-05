@@ -1,8 +1,7 @@
-package repository;
+package repository.customer;
 
 import base.repository.BaseRepositoryImpel;
 import model.Customer;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +10,7 @@ import java.sql.SQLException;
 public class CustomerRepositoryImpel extends BaseRepositoryImpel<Integer, Customer> implements CustomerRepository {
 
 
-    protected CustomerRepositoryImpel(Connection connection) {
+    public CustomerRepositoryImpel(Connection connection) {
         super(connection);
     }
 
@@ -61,5 +60,10 @@ public class CustomerRepositoryImpel extends BaseRepositoryImpel<Integer, Custom
     @Override
     public String getUpdateQueryParams() {
         return " first_name = ? , last_name = ? , user_name = ? , email = ? , password = ? , national_code = ? ";
+    }
+
+    @Override
+    public Customer findById(Integer integer) throws SQLException {
+        return null;
     }
 }
