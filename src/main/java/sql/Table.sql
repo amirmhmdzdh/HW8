@@ -25,3 +25,15 @@ CREATE TABLE IF NOT EXISTS category
 
 
 );
+CREATE TABLE IF NOT EXISTS product
+(
+    id          SERIAL PRIMARY KEY,
+    name        VARCHAR,
+    description VARCHAR,
+    gender      VARCHAR,
+    color       VARCHAR,
+    size        INTEGER,
+    price       INTEGER
+
+
+);
