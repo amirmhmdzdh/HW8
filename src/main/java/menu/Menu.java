@@ -1,6 +1,7 @@
 package menu;
 
 import service.admin.AdminService;
+import service.category.CategoryService;
 import service.customer.CustomerService;
 import utility.ApplicationContex;
 
@@ -13,7 +14,7 @@ public class Menu {
     private final Scanner scanner = new Scanner(System.in);
     private final CustomerService customerService = ApplicationContex.getCustomerService();
     private final AdminService adminService = ApplicationContex.getAdminService();
-
+    private final CategoryService categoryService = ApplicationContex.getCategoryService();
 
     public Menu() {
     }
@@ -85,13 +86,14 @@ public class Menu {
             System.out.println(" Admin Menu ");
             System.out.println();
             System.out.println(" 1- Login to own Account");
+            System.out.println(" 2- Add category ");
 
 
             try {
                 int num = scanner.nextInt();
                 switch (num) {
                     case 1 -> signIN();
-
+                    case 2 -> addCategory();
                     default -> throw new
                             InputMismatchException("Invalid input");
                 }
@@ -128,4 +130,10 @@ public class Menu {
 
         adminService.signIn();
     }
+
+    private void addCategory() {
+        categoryService.saveCategory();
+    }
+
+
 }
