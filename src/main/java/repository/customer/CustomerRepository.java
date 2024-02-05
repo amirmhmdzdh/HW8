@@ -1,4 +1,4 @@
-package repository;
+package repository.customer;
 
 import base.repository.BaseRepository;
 import model.Customer;

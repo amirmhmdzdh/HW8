@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 
 public class CategoryRepositoryImpel extends BaseRepositoryImpel<Integer, Category> implements CategoryRepository {
-    protected CategoryRepositoryImpel(Connection connection) {
+    public CategoryRepositoryImpel(Connection connection) {
         super(connection);
     }
 
