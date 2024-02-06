@@ -117,7 +117,7 @@ public class Menu {
 
     private void signin() {
         customerService.signIn();
-
+        categoryService.findAllCategory();
     }
 
     private void update() {
