@@ -57,4 +57,16 @@ public class CategoryServiceImpel extends BaseServiceImpel<Integer, Category, Ca
             System.out.println("something is wrong :/");
         }
     }
-}
+
+    @Override
+    public void findAllCategory() {
+        try {
+            Category[] categories = repository.findAllCategory();
+
+            for (Category category : categories) {
+                System.out.println(category);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }}
