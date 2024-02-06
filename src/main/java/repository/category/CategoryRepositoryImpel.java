@@ -58,4 +58,33 @@ public class CategoryRepositoryImpel extends BaseRepositoryImpel<Integer, Catego
     public String getUpdateQueryParams() {
         return " name = ? , description = ? ";
     }
+
+    @Override
+    public Category[] findAllCategory() throws SQLException {
+
+        String query = " SELECT * FROM category " ;
+
+        PreparedStatement preparedStatement = super.getConnection().prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        resultSet.last();
+        int rowCount = resultSet.getRow();
+        resultSet.beforeFirst();
+
+        Category[] categories = new Category[rowCount];
+
+        int i = 0;
+        while (resultSet.next()) {
+            int categoryId = resultSet.getInt("id");
+            String categoryName = resultSet.getString("name");
+            String description = resultSet.getString("description");
+
+            Category category = new Category(categoryId, categoryName, description);
+            categories[i] = category;
+            i++;
+        }
+
+
+        return categories;
+    }
 }
