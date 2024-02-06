@@ -83,4 +83,19 @@ public class ProductServiceImpel extends BaseServiceImpel<Integer, Product, Prod
         }
 
     }
+
+    @Override
+    public void findAllProduct() {
+
+        try {
+            Product[] products = repository.findAllProduct();
+
+            for (Product product : products) {
+                System.out.println(product);
+            }
+
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+    }
 }
