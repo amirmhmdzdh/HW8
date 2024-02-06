@@ -17,6 +17,9 @@ public abstract class BaseRepositoryImpel<ID extends Serializable, TYPE extends 
         this.connection = connection;
     }
 
+    public Connection getConnection() {
+        return connection;
+    }
 
     @Override
     public int save(TYPE entity) throws SQLException {
