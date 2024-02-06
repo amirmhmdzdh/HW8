@@ -68,4 +68,36 @@ public class ProductRepositoryImpel extends BaseRepositoryImpel<Integer, Product
     public String getUpdateQueryParams() {
         return " name = ? , description = ? , gender = ? , color = ? , size = ? , price = ? ,  category_id = ? ";
     }
+
+    @Override
+    public Product[] findAllProduct() throws SQLException {
+
+        String query = " SELECT * FROM product ";
+        PreparedStatement preparedStatement = super.getConnection().prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        resultSet.last();
+        int rowCount = resultSet.getRow();
+        resultSet.beforeFirst();
+
+        Product[] products = new Product[rowCount];
+
+        int i = 0;
+        while (resultSet.next()) {
+            int productId = resultSet.getInt("id");
+            String categoryName = resultSet.getString("name");
+            String description = resultSet.getString("description");
+            String gender = resultSet.getString("gender");
+            String color = resultSet.getString("color");
+            int size = resultSet.getInt("size");
+            int price = resultSet.getInt("price");
+            int categoryId = resultSet.getInt("category_id");
+
+            Product product = new Product(productId, categoryName, description, gender, color, size, price, categoryId);
+
+        }
+
+
+        return products;
+    }
 }
