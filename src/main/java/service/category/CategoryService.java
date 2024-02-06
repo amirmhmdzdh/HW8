@@ -6,5 +6,6 @@ import model.Category;
 public interface CategoryService extends BaseService<Integer , Category> {
 
  void saveCategory();
+ void findAllCategory();
 
 }
