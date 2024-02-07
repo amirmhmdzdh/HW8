@@ -61,9 +61,4 @@ public class CustomerRepositoryImpel extends BaseRepositoryImpel<Integer, Custom
     public String getUpdateQueryParams() {
         return " first_name = ? , last_name = ? , user_name = ? , email = ? , password = ? , national_code = ? ";
     }
-
-    @Override
-    public Customer findById(Integer integer) throws SQLException {
-        return null;
-    }
 }
