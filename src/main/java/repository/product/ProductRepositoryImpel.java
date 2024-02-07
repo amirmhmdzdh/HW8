@@ -15,11 +15,6 @@ public class ProductRepositoryImpel extends BaseRepositoryImpel<Integer, Product
     }
 
     @Override
-    public Product findById(Integer integer) throws SQLException {
-        return null;
-    }
-
-    @Override
     public String getTableName() {
         return " product ";
     }
@@ -59,14 +54,14 @@ public class ProductRepositoryImpel extends BaseRepositoryImpel<Integer, Product
         product.setColor(resultSet.getString("color"));
         product.setSiza(resultSet.getInt("size"));
         product.setPrice(resultSet.getInt("price"));
-        product.setCategoryId(resultSet.getInt(" category_id "));
+        product.setCategoryId(resultSet.getInt("category_id"));
 
         return product;
     }
 
     @Override
     public String getUpdateQueryParams() {
-        return " name = ? , description = ? , gender = ? , color = ? , size = ? , price = ? ,  category_id = ? ";
+        return " name = ? , description = ? , gender = ? , color = ? , size = ? , price = ? , category_id = ? ";
     }
 
     @Override
@@ -95,6 +90,8 @@ public class ProductRepositoryImpel extends BaseRepositoryImpel<Integer, Product
 
             Product product = new Product(productId, categoryName, description, gender, color, size, price, categoryId);
 
+            products[i] = product;
+            i++;
         }
 
 
