@@ -93,9 +93,8 @@ public class ProductServiceImpel extends BaseServiceImpel<Integer, Product, Prod
             for (Product product : products) {
                 System.out.println(product);
             }
-
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println("An error occurred while retrieving the products: " + e.getMessage());
         }
     }
 }
