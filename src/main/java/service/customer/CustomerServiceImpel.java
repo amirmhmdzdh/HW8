@@ -2,18 +2,20 @@ package service.customer;
 
 import base.service.BaseServiceImpel;
 import model.Customer;
+import repository.cart.CartRepository;
 import repository.customer.CustomerRepository;
 import utility.Validation;
-
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class CustomerServiceImpel extends BaseServiceImpel<Integer, Customer, CustomerRepository> implements CustomerService {
 
     private final Scanner scanner = new Scanner(System.in);
+    private final CartRepository cartRepository;
 
-    public CustomerServiceImpel(CustomerRepository repository) {
+    public CustomerServiceImpel(CustomerRepository repository, CartRepository cartRepository) {
         super(repository);
+        this.cartRepository = cartRepository;
 
     }
 
@@ -140,10 +142,18 @@ public class CustomerServiceImpel extends BaseServiceImpel<Integer, Customer, Cu
     @Override
     public void editeProfile() {
 
-        Customer customer = new Customer();
-        boolean exit = false;
+        System.out.println("please enter your Customer Id : ");
+        int id = scanner.nextInt();
+        Customer customer = null;
+        try {
+            customer = findById(id);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
+        boolean exit = false;
         while (!exit) {
+
             System.out.println("Please select an option:");
             System.out.println("1. Edit first name");
             System.out.println("2. Edit last name");
@@ -159,6 +169,11 @@ public class CustomerServiceImpel extends BaseServiceImpel<Integer, Customer, Cu
                     String firstName = scanner.next();
                     if (Validation.isValidName(firstName)) {
                         customer.setFirstName(firstName);
+                        try {
+                            repository.update(customer);
+                        } catch (SQLException e) {
+                            System.out.println(e.getMessage());
+                        }
                         System.out.println("First name updated successfully.");
                     } else {
                         System.out.println("Invalid first name. Please try again.");
@@ -169,6 +184,12 @@ public class CustomerServiceImpel extends BaseServiceImpel<Integer, Customer, Cu
                     String lastName = scanner.next();
                     if (Validation.isValidName(lastName)) {
                         customer.setLastName(lastName);
+                        try {
+                            repository.update(customer);
+                        } catch (SQLException e) {
+                            System.out.println(e.getMessage());
+                        }
+
                         System.out.println("Last name updated successfully.");
                     } else {
                         System.out.println("Invalid last name. Please try again.");
@@ -179,6 +200,12 @@ public class CustomerServiceImpel extends BaseServiceImpel<Integer, Customer, Cu
                     String email = scanner.next();
                     if (Validation.isValidEmail(email)) {
                         customer.setEmail(email);
+                        try {
+                            repository.update(customer);
+                        } catch (SQLException e) {
+                            System.out.println(e.getMessage());
+                        }
+
                         System.out.println("Email updated successfully.");
                     } else {
                         System.out.println("Invalid email. Please try again.");
@@ -187,9 +214,14 @@ public class CustomerServiceImpel extends BaseServiceImpel<Integer, Customer, Cu
                 case 4:
                     System.out.println("Please enter your password:");
                     String password = scanner.next();
-                    // اعتبارسنجی رمز عبور
                     if (Validation.isValidPassword(password)) {
                         customer.setPassword(password);
+                        try {
+                            repository.update(customer);
+                        } catch (SQLException e) {
+                            System.out.println(e.getMessage());
+                        }
+
                         System.out.println("Password updated successfully.");
                     } else {
                         System.out.println("Invalid password. Please try again.");
@@ -198,9 +230,13 @@ public class CustomerServiceImpel extends BaseServiceImpel<Integer, Customer, Cu
                 case 5:
                     System.out.println("Please enter your national code:");
                     String nationalCode = scanner.next();
-                    // اعتبارسنجی کد ملی
                     if (Validation.isValidnatioalCode(nationalCode)) {
                         customer.setNationalCode(nationalCode);
+                        try {
+                            repository.update(customer);
+                        } catch (SQLException e) {
+                            System.out.println(e.getMessage());
+                        }
                         System.out.println("National code updated successfully.");
                     } else {
                         System.out.println("Invalid national code. Please try again.");
@@ -227,6 +263,8 @@ public class CustomerServiceImpel extends BaseServiceImpel<Integer, Customer, Cu
         try {
             Customer customer = repository.findById(id);
             if (customer != null) {
+
+                cartRepository.deleteCustomerById(id);
                 repository.delete(id);
                 System.out.println("Account with ID " + id + " has been successfully deleted.");
             } else {
