@@ -1,7 +1,6 @@
 package base.repository;
 
 import base.model.BaseEntity;
-
 import java.io.Serializable;
 import java.sql.SQLException;
 
