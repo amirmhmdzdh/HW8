@@ -15,11 +15,6 @@ public class CategoryRepositoryImpel extends BaseRepositoryImpel<Integer, Catego
     }
 
     @Override
-    public Category findById(Integer integer) throws SQLException {
-        return null;
-    }
-
-    @Override
     public String getTableName() {
         return " category ";
     }
