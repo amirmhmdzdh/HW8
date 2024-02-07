@@ -120,6 +120,7 @@ public class Menu {
 
     private void signin() {
         customerService.signIn();
+        System.out.println(" WELCOME ");
         System.out.println(" **** CATEGORIES **** ");
         System.out.println();
         categoryService.findAllCategory();
@@ -158,7 +159,7 @@ public class Menu {
         productService.saveProduct();
     }
 
-    private void deleteCart(){
+    private void deleteCart() {
         cartService.deleteCart();
     }
 
