@@ -5,6 +5,7 @@ import model.Customer;
 import repository.cart.CartRepository;
 import repository.customer.CustomerRepository;
 import utility.Validation;
+
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -122,15 +123,17 @@ public class CustomerServiceImpel extends BaseServiceImpel<Integer, Customer, Cu
 
             customer = repository.findUser(userName);
 
-        } catch (SQLException e) {
+        } catch (SQLException | NullPointerException e) {
             System.out.println(e.getMessage());
         }
 
 
-        if (customer == null)
+        if (customer == null) {
             System.out.println("please register first");
 
-        else if (!customer.getPassword().equals(password)) {
+            signUp();
+
+        } else if (!customer.getPassword().equals(password)) {
             System.out.println("please enter correct password");
         } else
             System.out.println("WELCOME " + customer.getUsername());
