@@ -1,11 +1,11 @@
 package menu;
 
 import service.admin.AdminService;
+import service.cart.CartService;
 import service.category.CategoryService;
 import service.customer.CustomerService;
 import service.product.ProductService;
 import utility.ApplicationContex;
-
 import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -17,11 +17,12 @@ public class Menu {
     private final AdminService adminService = ApplicationContex.getAdminService();
     private final CategoryService categoryService = ApplicationContex.getCategoryService();
     private final ProductService productService = ApplicationContex.getProductService();
+    private final CartService cartService = ApplicationContex.getCartService();
 
     public Menu() {
     }
 
-    public void publicMenu() throws SQLException {
+    public void publicMenu() {
 
         boolean back = false;
 
@@ -57,9 +58,10 @@ public class Menu {
             System.out.println(" CUSTOMER MENU ");
             System.out.println();
             System.out.println(" 1-Sign Up ");
-            System.out.println(" 2-Sign In ");
-            System.out.println(" 3-Edite profile ");
-            System.out.println(" 4-delete Account ");
+            System.out.println(" 2-Entry and order registration ");
+            System.out.println(" 3-delete Cart ");
+            System.out.println(" 4-Edite profile ");
+            System.out.println(" 5-delete Account ");
 
 
             try {
@@ -67,8 +69,9 @@ public class Menu {
                 switch (num) {
                     case 1 -> signup();
                     case 2 -> signin();
-                    case 3 -> update();
-                    case 4 -> delete();
+                    case 3 -> deleteCart();
+                    case 4 -> update();
+                    case 5 -> delete();
                     default -> throw new
                             InputMismatchException("Invalid input");
                 }
@@ -80,7 +83,7 @@ public class Menu {
     }
 
 
-    public void adminMenu() throws SQLException {
+    public void adminMenu() {
 
         boolean back = false;
 
@@ -117,7 +120,20 @@ public class Menu {
 
     private void signin() {
         customerService.signIn();
+        System.out.println(" **** CATEGORIES **** ");
+        System.out.println();
         categoryService.findAllCategory();
+        System.out.println();
+        System.out.println(" **** PRODUCTS **** ");
+        System.out.println();
+        productService.findAllProduct();
+        System.out.println();
+        System.out.println(" **** Please complete your shopping cart ****");
+        try {
+            cartService.saveCart();
+        } catch (SQLException e) {
+            System.out.println("An error occurred while saving the cart: " + e.getMessage());
+        }
     }
 
     private void update() {
@@ -140,6 +156,10 @@ public class Menu {
 
     private void addProduct() {
         productService.saveProduct();
+    }
+
+    private void deleteCart(){
+        cartService.deleteCart();
     }
 
 }
