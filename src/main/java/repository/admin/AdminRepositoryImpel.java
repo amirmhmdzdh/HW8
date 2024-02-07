@@ -2,7 +2,6 @@ package repository.admin;
 
 import base.repository.BaseRepositoryImpel;
 import model.Admin;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -54,8 +53,4 @@ public class AdminRepositoryImpel extends BaseRepositoryImpel<Integer, Admin> im
         return" user_name = ? , password = ? ";
     }
 
-    @Override
-    public Admin findById(Integer integer) throws SQLException {
-        return null;
-    }
 }
