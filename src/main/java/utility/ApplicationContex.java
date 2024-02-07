@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import repository.admin.AdminRepository;
 import repository.admin.AdminRepositoryImpel;
+import repository.cart.CartRepository;
+import repository.cart.CartRepositoryImpel;
 import repository.category.CategoryRepository;
 import repository.category.CategoryRepositoryImpel;
 import repository.customer.CustomerRepository;
@@ -13,6 +15,8 @@ import repository.product.ProductRepository;
 import repository.product.ProductRepositoryImpel;
 import service.admin.AdminService;
 import service.admin.AdminServiceImpel;
+import service.cart.CartService;
+import service.cart.CartServiceImpel;
 import service.category.CategoryService;
 import service.category.CategoryServiceImpel;
 import service.customer.CustomerService;
@@ -25,23 +29,27 @@ import java.sql.Connection;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ApplicationContex {
 
+
+    //Repository
     static final Connection CONNECTION;
     static final CustomerRepository CUSTOMER_REPOSITORY;
     static final AdminRepository ADMIN_REPOSITORY;
     static final CategoryRepository CATEGORY_REPOSITORY;
     static final ProductRepository PRODUCT_REPOSITORY;
+    static final CartRepository CART_REPOSITORY;
 
 
+    //Service
     static final CustomerService CUSTOMER_SERVICE;
     static final AdminService ADMIN_SERVICE;
     static final CategoryService CATEGORY_SERVICE;
     static final ProductService PRODUCT_SERVICE;
+    static final CartService CART_SERVICE;
 
     static {
 
         CONNECTION = JDBCConnection.getConnection();
         CUSTOMER_REPOSITORY = new CustomerRepositoryImpel(CONNECTION);
-        CUSTOMER_SERVICE = new CustomerServiceImpel(CUSTOMER_REPOSITORY);
 
 
         ADMIN_REPOSITORY = new AdminRepositoryImpel(CONNECTION);
@@ -53,7 +61,14 @@ public class ApplicationContex {
 
         PRODUCT_REPOSITORY = new ProductRepositoryImpel(CONNECTION);
         PRODUCT_SERVICE = new ProductServiceImpel(PRODUCT_REPOSITORY);
+
+        CART_REPOSITORY = new CartRepositoryImpel(CONNECTION);
+        CART_SERVICE = new CartServiceImpel(CART_REPOSITORY, PRODUCT_SERVICE);
+        CUSTOMER_SERVICE = new CustomerServiceImpel(CUSTOMER_REPOSITORY, CART_REPOSITORY);
     }
+
+
+
 
 
     public static CustomerService getCustomerService() {
@@ -72,4 +87,7 @@ public class ApplicationContex {
         return PRODUCT_SERVICE;
     }
 
+    public static CartService getCartService() {
+        return CART_SERVICE;
+    }
 }
