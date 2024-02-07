@@ -35,6 +35,17 @@ CREATE TABLE IF NOT EXISTS product
     size        INTEGER,
     price       INTEGER,
     category_id Integer,
-    FOREIGN KEY (category_id)REFERENCES category(id)
+    FOREIGN KEY (category_id) REFERENCES category (id)
 
+);
+CREATE TABLE IF NOT EXISTS cart
+(
+    id          SERIAL PRIMARY KEY,
+    customer_id INTEGER,
+    product_id  INTEGER,
+    number      INTEGER,
+    price       INTEGER,
+
+    FOREIGN KEY (customer_id) REFERENCES customer (id),
+    FOREIGN KEY (product_id) REFERENCES product (id)
 );
