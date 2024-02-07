@@ -1,7 +1,6 @@
 package base.repository;
 
 import base.model.BaseEntity;
-
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,7 +30,6 @@ public abstract class BaseRepositoryImpel<ID extends Serializable, TYPE extends 
             preparedStatement.executeUpdate();
 
         }
-
         return 0;
     }
 
@@ -49,6 +47,19 @@ public abstract class BaseRepositoryImpel<ID extends Serializable, TYPE extends 
         return null;
     }
 
+    @Override
+    public TYPE findById(ID id) throws SQLException {
+
+        String sql = " SELECT * FROM " + getTableName() + " WHERE id = ? ";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1,(Integer) id );
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next())
+                return mapResultSetToEntity(resultSet);
+        }
+        return null;
+    }
 
     @Override
     public void update(TYPE entity) throws SQLException {
@@ -60,17 +71,14 @@ public abstract class BaseRepositoryImpel<ID extends Serializable, TYPE extends 
             preparedStatement.executeUpdate();
         }
     }
-
-
     @Override
     public void delete(ID id) throws SQLException {
 
         String sql = " DELETE FROM " + getTableName() + " WHERE id = ? ";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, (Integer) id);
             preparedStatement.executeUpdate();
         }
-
     }
 
     public abstract String getTableName();
