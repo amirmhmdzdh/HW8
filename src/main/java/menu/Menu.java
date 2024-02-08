@@ -27,7 +27,9 @@ public class Menu {
         boolean back = false;
 
         while (!back) {
-            System.out.println("***  Welcome to our online store  *** ");
+            System.out.println("----------------------------------------------------------");
+            System.out.println("|                 WELCOME TO ONLINE SHOP                 |");
+            System.out.println("----------------------------------------------------------");
             System.out.println();
             System.out.println(" Please select the desired section :)  ");
             System.out.println("1- Customer ");
